@@ -34,4 +34,4 @@ bin
 lib
 
 # Personnal config
-CMakeConfig.txt
+Config.cmake
