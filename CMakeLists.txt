@@ -26,7 +26,6 @@ if(WIN32)
     set(PLATEFORME WINDOWS)
 elseif(UNIX)
     set(PLATEFORME UNIX)
-    link_directories("${SFML_ABSOLUTE_PATH}/lib")
 else()
     set(PLATEFORME NOT_SUPPORTED)
     message(FATAL_ERROR "This plateforme is currently not supported")
@@ -55,10 +54,20 @@ endif()
 
 set(PROJECT_INCLUDE "${PROJECT_SOURCE_DIR}/include")
 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall")
+
 # include search path
-include_directories(
-        ${PROJECT_INCLUDE}
-        ${SFML_INCLUDE})
+if (PLATEFORME STREQUAL "WINDOWS")
+
+    include_directories(
+            ${PROJECT_INCLUDE}
+            ${SFML_INCLUDE})
+
+elseif(PLATEFORME STREQUAL "UNIX")
+
+    include_directories(${PROJECT_INCLUDE})
+
+endif()
 
 # Adding sub directories
 add_subdirectory(src)

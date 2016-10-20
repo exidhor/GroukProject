@@ -34,10 +34,14 @@ if(PLATEFORME STREQUAL "WINDOWS")
 
     endif()
 
-elseif(PLATEFORME STREQUAL "LINUX")
+elseif(PLATEFORME STREQUAL "UNIX")
 
-    target_link_libraries(${EXENAME}
-            ${SFML_FULL_LIB_LINUX})
+        set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
+        find_package(SFML REQUIRED system window graphics network audio)
+        if (SFML_FOUND)
+            include_directories(${SFML_INCLUDE_DIR})
+            target_link_libraries(${EXENAME} ${SFML_LIBRARIES})
+        endif()
 
 else()
 
